@@ -1,2 +1,10 @@
 # UIKitMemoTutorial
-UIKit 스터디를 위한 메모 앱 샘플입니다. 학습 시 이를 참고할 수 있습니다.
+## 1주차 
+1. 프로젝트 세팅하기
+
+2. MVC 구조 알아보기
+
+3. 테이블 사용해서 목록 표시하기
+- `UITableViewController` 
+- `UITableView` , `UITableViewDataSource`, `UITableViewDelegate`
+- `UITableViewCell`
