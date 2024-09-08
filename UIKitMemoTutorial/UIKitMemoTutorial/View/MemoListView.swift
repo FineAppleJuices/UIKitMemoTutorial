@@ -19,7 +19,7 @@ class MemoListView: UIView {
     
     let tableView: UITableView = {
         let table = UITableView()
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "MemoCell")
+        table.register(MemoTableViewCell.self, forCellReuseIdentifier: MemoTableViewCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()

@@ -40,10 +40,12 @@ extension MemoViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MemoCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoTableViewCell.identifier, for: indexPath) as? MemoTableViewCell else {
+            fatalError("Failed to dequeue MemoTableViewCell")
+        }
         
         let memo = memos[indexPath.row]
-        cell.textLabel?.text = memo.title
+        cell.configure(with: memo)
         
         return cell
     }

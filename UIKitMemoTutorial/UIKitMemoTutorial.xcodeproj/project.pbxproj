@@ -14,6 +14,7 @@
 		AF8F61C22C8C91F200D6E8E2 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AF8F61C12C8C91F200D6E8E2 /* Base */; };
 		AF8F62102C8DCF0800D6E8E2 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8F620F2C8DCF0800D6E8E2 /* Memo.swift */; };
 		AF8F62122C8DDA9F00D6E8E2 /* MemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8F62112C8DDA9F00D6E8E2 /* MemoListView.swift */; };
+		AF8F62162C8DDE5700D6E8E2 /* MemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8F62152C8DDE5700D6E8E2 /* MemoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		AF8F61C32C8C91F200D6E8E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF8F620F2C8DCF0800D6E8E2 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		AF8F62112C8DDA9F00D6E8E2 /* MemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListView.swift; sourceTree = "<group>"; };
+		AF8F62152C8DDE5700D6E8E2 /* MemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,9 +91,18 @@
 		AF8F620E2C8DCED900D6E8E2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AF8F62132C8DDE3900D6E8E2 /* Cell */,
 				AF8F62112C8DDA9F00D6E8E2 /* MemoListView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		AF8F62132C8DDE3900D6E8E2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AF8F62152C8DDE5700D6E8E2 /* MemoTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF8F61BA2C8C91F100D6E8E2 /* MemoViewController.swift in Sources */,
+				AF8F62162C8DDE5700D6E8E2 /* MemoTableViewCell.swift in Sources */,
 				AF8F61B62C8C91F100D6E8E2 /* AppDelegate.swift in Sources */,
 				AF8F61B82C8C91F100D6E8E2 /* SceneDelegate.swift in Sources */,
 				AF8F62122C8DDA9F00D6E8E2 /* MemoListView.swift in Sources */,
