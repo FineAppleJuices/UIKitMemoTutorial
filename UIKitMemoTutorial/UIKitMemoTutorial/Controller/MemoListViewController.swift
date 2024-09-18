@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MemoViewController: UIViewController {
+class MemoListViewController: UIViewController {
     
     private let memoListView = MemoListView()
     
@@ -34,7 +34,7 @@ class MemoViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension MemoViewController: UITableViewDataSource {
+extension MemoListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memos.count
     }
@@ -52,9 +52,11 @@ extension MemoViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension MemoViewController: UITableViewDelegate {
+extension MemoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("선택된 메모: \(memos[indexPath.row].title)")
+        let selectedMemo = memos[indexPath.row]
+        let detailViewController = MemoDetailViewController(memo: selectedMemo)
         tableView.deselectRow(at: indexPath, animated: true)
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
