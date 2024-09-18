@@ -30,6 +30,15 @@ class MemoListViewController: UIViewController {
         
         memoListView.tableView.delegate = self
         memoListView.tableView.dataSource = self
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewMemo))
+    }
+    
+    @objc func addNewMemo() {
+        let newMemoVC = NewMemoViewController()
+        newMemoVC.delegate = self
+        let navController = UINavigationController(rootViewController: newMemoVC)
+        present(navController, animated: true)
     }
 }
 
@@ -58,5 +67,13 @@ extension MemoListViewController: UITableViewDelegate {
         let detailViewController = MemoDetailViewController(memo: selectedMemo)
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+
+// MARK: - MemoCreationDelegate 구현
+extension MemoListViewController: MemoCreationDelegate {
+    func didCreateNewMemo(_ memo: Memo) {
+        memos.append(memo)
+        self.memoListView.tableView.reloadData()
     }
 }
