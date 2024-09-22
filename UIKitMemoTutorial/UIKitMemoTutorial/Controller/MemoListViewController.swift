@@ -68,6 +68,36 @@ extension MemoListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.pushViewController(detailViewController, animated: true)
     }
+    
+    // UITableView trailingSwipeAction Config
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { [weak self] (action, view, completion) in
+              self?.showDeleteConfirmation(for: indexPath)
+              completion(true)
+          }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
+    
+    // Show Action Sheet
+    private func showDeleteConfirmation(for indexPath: IndexPath) {
+        let alert = UIAlertController(title: "메모 삭제", message: "이 메모를 삭제하시겠습니까?", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [weak self] _ in
+            self?.deleteMemo(at: indexPath)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        present(alert, animated: true)
+    }
+    
+    // Delete Memo
+    private func deleteMemo(at indexPath: IndexPath) {
+        memos.remove(at: indexPath.row)
+        self.memoListView.tableView.deleteRows(at: [indexPath], with: .fade)
+    }
 }
 
 // MARK: - MemoCreationDelegate 구현
