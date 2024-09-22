@@ -35,7 +35,7 @@ class MemoListViewController: UIViewController {
     }
     
     @objc func addNewMemo() {
-        let newMemoVC = NewMemoViewController()
+        let newMemoVC = MemoFormController()
         newMemoVC.delegate = self
         let navController = UINavigationController(rootViewController: newMemoVC)
         present(navController, animated: true)
@@ -74,9 +74,16 @@ extension MemoListViewController: UITableViewDelegate {
         let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { [weak self] (action, view, completion) in
               self?.showDeleteConfirmation(for: indexPath)
               completion(true)
-          }
+        }
         
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        let editAction = UIContextualAction(style: .normal, title: "편집") { [weak self] (action, view, completion) in
+             self?.showEditMemo(at: indexPath)
+             completion(true)
+        }
+         
+         editAction.backgroundColor = .systemBlue
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return configuration
     }
     
@@ -98,12 +105,28 @@ extension MemoListViewController: UITableViewDelegate {
         memos.remove(at: indexPath.row)
         self.memoListView.tableView.deleteRows(at: [indexPath], with: .fade)
     }
+    
+    // Edit Memo
+    private func showEditMemo(at indexPath: IndexPath) {
+        let memo = memos[indexPath.row]
+        let editMemoVC = MemoFormController(memo: memo)
+        editMemoVC.delegate = self
+        let navController = UINavigationController(rootViewController: editMemoVC)
+        present(navController, animated: true)
+    }
 }
 
 // MARK: - MemoCreationDelegate 구현
-extension MemoListViewController: MemoCreationDelegate {
+extension MemoListViewController: MemoDelegate {
     func didCreateNewMemo(_ memo: Memo) {
         memos.append(memo)
         self.memoListView.tableView.reloadData()
+    }
+    
+    func didUpdateMemo(_ updatedMemo: Memo) {
+        if let index = memos.firstIndex(where: { $0.id == updatedMemo.id }) {
+            memos[index] = updatedMemo
+            self.memoListView.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        }
     }
 }

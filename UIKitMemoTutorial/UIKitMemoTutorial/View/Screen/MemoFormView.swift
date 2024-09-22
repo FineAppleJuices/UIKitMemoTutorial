@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewMemoView: UIView {
+class MemoFormView: UIView {
     let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "제목"
