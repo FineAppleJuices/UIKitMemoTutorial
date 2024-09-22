@@ -35,7 +35,7 @@ class MemoListViewController: UIViewController {
     }
     
     @objc func addNewMemo() {
-        let newMemoVC = NewMemoViewController()
+        let newMemoVC = MemoFormController()
         newMemoVC.delegate = self
         let navController = UINavigationController(rootViewController: newMemoVC)
         present(navController, animated: true)
@@ -68,12 +68,65 @@ extension MemoListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.pushViewController(detailViewController, animated: true)
     }
+    
+    // UITableView trailingSwipeAction Config
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { [weak self] (action, view, completion) in
+              self?.showDeleteConfirmation(for: indexPath)
+              completion(true)
+        }
+        
+        let editAction = UIContextualAction(style: .normal, title: "편집") { [weak self] (action, view, completion) in
+             self?.showEditMemo(at: indexPath)
+             completion(true)
+        }
+         
+         editAction.backgroundColor = .systemBlue
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        return configuration
+    }
+    
+    // Show Action Sheet
+    private func showDeleteConfirmation(for indexPath: IndexPath) {
+        let alert = UIAlertController(title: "메모 삭제", message: "이 메모를 삭제하시겠습니까?", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [weak self] _ in
+            self?.deleteMemo(at: indexPath)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        present(alert, animated: true)
+    }
+    
+    // Delete Memo
+    private func deleteMemo(at indexPath: IndexPath) {
+        memos.remove(at: indexPath.row)
+        self.memoListView.tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+    
+    // Edit Memo
+    private func showEditMemo(at indexPath: IndexPath) {
+        let memo = memos[indexPath.row]
+        let editMemoVC = MemoFormController(memo: memo)
+        editMemoVC.delegate = self
+        let navController = UINavigationController(rootViewController: editMemoVC)
+        present(navController, animated: true)
+    }
 }
 
 // MARK: - MemoCreationDelegate 구현
-extension MemoListViewController: MemoCreationDelegate {
+extension MemoListViewController: MemoDelegate {
     func didCreateNewMemo(_ memo: Memo) {
         memos.append(memo)
         self.memoListView.tableView.reloadData()
+    }
+    
+    func didUpdateMemo(_ updatedMemo: Memo) {
+        if let index = memos.firstIndex(where: { $0.id == updatedMemo.id }) {
+            memos[index] = updatedMemo
+            self.memoListView.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        }
     }
 }

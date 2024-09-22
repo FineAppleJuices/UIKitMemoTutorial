@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Memo {
-    let title: String
-    let content: String
+struct Memo: Equatable {
+    let id: String = UUID().uuidString
+    var title: String
+    var content: String
 }
