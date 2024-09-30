@@ -19,6 +19,11 @@
 		AF8F62102C8DCF0800D6E8E2 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8F620F2C8DCF0800D6E8E2 /* Memo.swift */; };
 		AF8F62122C8DDA9F00D6E8E2 /* MemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8F62112C8DDA9F00D6E8E2 /* MemoListView.swift */; };
 		AF8F62162C8DDE5700D6E8E2 /* MemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8F62152C8DDE5700D6E8E2 /* MemoTableViewCell.swift */; };
+		AFB134E02CAA355D0094EBE0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134DF2CAA355D0094EBE0 /* SettingViewController.swift */; };
+		AFB134E22CAA358B0094EBE0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134E12CAA358B0094EBE0 /* MainTabBarController.swift */; };
+		AFB134E62CAA37E10094EBE0 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134E52CAA37E10094EBE0 /* NotificationSettingViewController.swift */; };
+		AFB134E82CAA37F40094EBE0 /* ThemeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134E72CAA37F40094EBE0 /* ThemeSettingsViewController.swift */; };
+		AFB134EA2CAA38040094EBE0 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134E92CAA38040094EBE0 /* AppInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +41,11 @@
 		AF8F620F2C8DCF0800D6E8E2 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		AF8F62112C8DDA9F00D6E8E2 /* MemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListView.swift; sourceTree = "<group>"; };
 		AF8F62152C8DDE5700D6E8E2 /* MemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableViewCell.swift; sourceTree = "<group>"; };
+		AFB134DF2CAA355D0094EBE0 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		AFB134E12CAA358B0094EBE0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		AFB134E52CAA37E10094EBE0 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
+		AFB134E72CAA37F40094EBE0 /* ThemeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettingsViewController.swift; sourceTree = "<group>"; };
+		AFB134E92CAA38040094EBE0 /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +111,9 @@
 		AF8F620D2C8DCECF00D6E8E2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				AF8F61B92C8C91F100D6E8E2 /* MemoListViewController.swift */,
-				AF5E24822C9B1B4D00FA2DA5 /* MemoDetailViewController.swift */,
-				AF5E24862C9B2D0E00FA2DA5 /* MemoFormController.swift */,
+				AFB134E12CAA358B0094EBE0 /* MainTabBarController.swift */,
+				AFB134E42CAA37710094EBE0 /* Setting */,
+				AFB134E32CAA37480094EBE0 /* Memo */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -123,6 +133,27 @@
 				AF8F62152C8DDE5700D6E8E2 /* MemoTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		AFB134E32CAA37480094EBE0 /* Memo */ = {
+			isa = PBXGroup;
+			children = (
+				AF5E24822C9B1B4D00FA2DA5 /* MemoDetailViewController.swift */,
+				AF8F61B92C8C91F100D6E8E2 /* MemoListViewController.swift */,
+				AF5E24862C9B2D0E00FA2DA5 /* MemoFormController.swift */,
+			);
+			path = Memo;
+			sourceTree = "<group>";
+		};
+		AFB134E42CAA37710094EBE0 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				AFB134DF2CAA355D0094EBE0 /* SettingViewController.swift */,
+				AFB134E52CAA37E10094EBE0 /* NotificationSettingViewController.swift */,
+				AFB134E72CAA37F40094EBE0 /* ThemeSettingsViewController.swift */,
+				AFB134E92CAA38040094EBE0 /* AppInfoViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,11 +227,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF7C167E2C9B1AD500DF3423 /* MemoDetailView.swift in Sources */,
+				AFB134E02CAA355D0094EBE0 /* SettingViewController.swift in Sources */,
+				AFB134E22CAA358B0094EBE0 /* MainTabBarController.swift in Sources */,
+				AFB134E62CAA37E10094EBE0 /* NotificationSettingViewController.swift in Sources */,
 				AF5E24832C9B1B4D00FA2DA5 /* MemoDetailViewController.swift in Sources */,
 				AF8F61BA2C8C91F100D6E8E2 /* MemoListViewController.swift in Sources */,
 				AF5E24872C9B2D0E00FA2DA5 /* MemoFormController.swift in Sources */,
+				AFB134E82CAA37F40094EBE0 /* ThemeSettingsViewController.swift in Sources */,
 				AF8F62162C8DDE5700D6E8E2 /* MemoTableViewCell.swift in Sources */,
 				AF8F61B62C8C91F100D6E8E2 /* AppDelegate.swift in Sources */,
+				AFB134EA2CAA38040094EBE0 /* AppInfoViewController.swift in Sources */,
 				AF8F61B82C8C91F100D6E8E2 /* SceneDelegate.swift in Sources */,
 				AF5E24852C9B2CE400FA2DA5 /* MemoFormView.swift in Sources */,
 				AF8F62122C8DDA9F00D6E8E2 /* MemoListView.swift in Sources */,
