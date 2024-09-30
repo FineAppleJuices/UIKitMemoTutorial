@@ -11,4 +11,5 @@ struct Memo: Equatable {
     let id: String = UUID().uuidString
     var title: String
     var content: String
+    var category: Category
 }

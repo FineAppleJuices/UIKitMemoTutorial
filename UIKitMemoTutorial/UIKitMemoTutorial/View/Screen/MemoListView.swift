@@ -18,7 +18,7 @@ class MemoListView: UIView {
     }()
     
     let tableView: UITableView = {
-        let table = UITableView()
+        let table = UITableView(frame: .zero, style: .grouped)
         table.register(MemoTableViewCell.self, forCellReuseIdentifier: MemoTableViewCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table

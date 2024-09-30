@@ -13,11 +13,15 @@ class MemoListViewController: UIViewController {
     
     // 샘플 메모 데이터 (Model)
     var memos: [Memo] = [
-        Memo(title: "쇼핑 목록", content: "우유, 빵, 달걀"),
-        Memo(title: "할 일", content: "운동가기, 책 반납하기"),
-        Memo(title: "회의 안건", content: "프로젝트 진행 상황 공유"),
-        Memo(title: "여행 계획", content: "숙소 예약, 관광지 조사")
+        Memo(title: "회의 준비", content: "프레젠테이션 자료 준비", category: .work),
+        Memo(title: "쇼핑 목록", content: "우유, 빵, 계란", category: .personal),
+        Memo(title: "새로운 앱 아이디어", content: "AR을 활용한 학습 앱", category: .ideas),
+        Memo(title: "운동 계획", content: "주 3회 러닝", category: .todos),
+        Memo(title: "프로젝트 마감일", content: "다음 주 금요일까지", category: .work)
     ]
+    
+    var categorizedMemos: [Category: [Memo]] = [:]
+    var categories: [Category] = []
     
     override func loadView() {
         view = memoListView
@@ -32,6 +36,14 @@ class MemoListViewController: UIViewController {
         memoListView.tableView.dataSource = self
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewMemo))
+        
+        categorizeMemos()
+    }
+    
+    func categorizeMemos() {
+        categorizedMemos = Dictionary(grouping: memos, by: { $0.category })
+        categories = categorizedMemos.keys.sorted { $0.rawValue < $1.rawValue }
+        memoListView.tableView.reloadData()
     }
     
     @objc func addNewMemo() {
@@ -44,44 +56,54 @@ class MemoListViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 extension MemoListViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return categories.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memos.count
+        let category = categories[section]
+        return categorizedMemos[category]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoTableViewCell.identifier, for: indexPath) as? MemoTableViewCell else {
-            fatalError("Failed to dequeue MemoTableViewCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: MemoTableViewCell.identifier, for: indexPath) as! MemoTableViewCell
+        let category = categories[indexPath.section]
+        if let memo = categorizedMemos[category]?[indexPath.row] {
+            cell.configure(with: memo)
         }
-        
-        let memo = memos[indexPath.row]
-        cell.configure(with: memo)
-        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return categories[section].rawValue
     }
 }
 
 // MARK: - UITableViewDelegate
 extension MemoListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedMemo = memos[indexPath.row]
-        let detailViewController = MemoDetailViewController(memo: selectedMemo)
-        tableView.deselectRow(at: indexPath, animated: true)
-        navigationController?.pushViewController(detailViewController, animated: true)
-    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let category = categories[indexPath.section]
+        if let memo = categorizedMemos[category]?[indexPath.row] {
+            let detailViewController = MemoDetailViewController(memo: memo)
+            navigationController?.pushViewController(detailViewController, animated: true)
+        }
+    }
     // UITableView trailingSwipeAction Config
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { [weak self] (action, view, completion) in
-              self?.showDeleteConfirmation(for: indexPath)
-              completion(true)
+            self?.showDeleteConfirmation(for: indexPath)
+            completion(true)
         }
         
         let editAction = UIContextualAction(style: .normal, title: "편집") { [weak self] (action, view, completion) in
-             self?.showEditMemo(at: indexPath)
-             completion(true)
+            self?.showEditMemo(at: indexPath)
+            completion(true)
         }
-         
-         editAction.backgroundColor = .systemBlue
+        
+        editAction.backgroundColor = .systemBlue
         
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return configuration
@@ -108,25 +130,53 @@ extension MemoListViewController: UITableViewDelegate {
     
     // Edit Memo
     private func showEditMemo(at indexPath: IndexPath) {
-        let memo = memos[indexPath.row]
-        let editMemoVC = MemoFormController(memo: memo)
-        editMemoVC.delegate = self
-        let navController = UINavigationController(rootViewController: editMemoVC)
-        present(navController, animated: true)
+        let category = categories[indexPath.section]
+        if let memo = categorizedMemos[category]?[indexPath.row] {
+            let memoFormController = MemoFormController(memo: memo)
+            memoFormController.delegate = self
+            let navController = UINavigationController(rootViewController: memoFormController)
+            present(navController, animated: true)
+        }
     }
 }
 
 // MARK: - MemoCreationDelegate 구현
 extension MemoListViewController: MemoDelegate {
     func didCreateNewMemo(_ memo: Memo) {
-        memos.append(memo)
-        self.memoListView.tableView.reloadData()
+        if categorizedMemos[memo.category] != nil {
+            categorizedMemos[memo.category]?.append(memo)
+        } else {
+            categorizedMemos[memo.category] = [memo]
+            categories.append(memo.category)
+            categories.sort { $0.rawValue < $1.rawValue }
+        }
+        memoListView.tableView.reloadData()
     }
     
     func didUpdateMemo(_ updatedMemo: Memo) {
-        if let index = memos.firstIndex(where: { $0.id == updatedMemo.id }) {
-            memos[index] = updatedMemo
-            self.memoListView.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        for (category, memos) in categorizedMemos {
+            if let index = memos.firstIndex(where: { $0.id == updatedMemo.id }) {
+                if category == updatedMemo.category {
+                    categorizedMemos[category]?[index] = updatedMemo
+                } else {
+                    categorizedMemos[category]?.remove(at: index)
+                    if categorizedMemos[category]?.isEmpty == true {
+                        categorizedMemos.removeValue(forKey: category)
+                        if let categoryIndex = categories.firstIndex(of: category) {
+                            categories.remove(at: categoryIndex)
+                        }
+                    }
+                    if categorizedMemos[updatedMemo.category] != nil {
+                        categorizedMemos[updatedMemo.category]?.append(updatedMemo)
+                    } else {
+                        categorizedMemos[updatedMemo.category] = [updatedMemo]
+                        categories.append(updatedMemo.category)
+                        categories.sort { $0.rawValue < $1.rawValue }
+                    }
+                }
+                memoListView.tableView.reloadData()
+                break
+            }
         }
     }
 }

@@ -25,6 +25,12 @@ class MemoFormView: UIView {
         return textView
     }()
     
+    let categoryPicker: UIPickerView = {
+        let picker = UIPickerView()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -39,6 +45,7 @@ class MemoFormView: UIView {
         
         addSubview(titleTextField)
         addSubview(contentTextView)
+        addSubview(categoryPicker)
         
         NSLayoutConstraint.activate([
             titleTextField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -48,7 +55,12 @@ class MemoFormView: UIView {
             contentTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20),
             contentTextView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             contentTextView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            contentTextView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            contentTextView.heightAnchor.constraint(equalToConstant: 200),
+            
+            categoryPicker.topAnchor.constraint(equalTo: contentTextView.bottomAnchor, constant: 20),
+            categoryPicker.leadingAnchor.constraint(equalTo: leadingAnchor),
+            categoryPicker.trailingAnchor.constraint(equalTo: trailingAnchor),
+            categoryPicker.bottomAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
 }
