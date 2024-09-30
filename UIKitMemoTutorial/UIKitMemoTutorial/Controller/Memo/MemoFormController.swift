@@ -12,11 +12,13 @@ protocol MemoDelegate: AnyObject {
     func didUpdateMemo(_ memo: Memo)
 }
 
+// MARK: - MemoFormController
 class MemoFormController: UIViewController {
     
-    weak var delegate: MemoDelegate?
     private let memoFormView = MemoFormView()
+    weak var delegate: MemoDelegate?
     private var memo: Memo?
+    private var selectedCategory: Category = .personal
     
     init(memo: Memo? = nil) {
         self.memo = memo
@@ -33,21 +35,37 @@ class MemoFormController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = memo == nil ? "새 메모" : "메모 편집"
         setupNavigationBar()
+        setupCategoryPicker()
         
         if let memo = memo {
             memoFormView.titleTextField.text = memo.title
             memoFormView.contentTextView.text = memo.content
+            selectedCategory = memo.category
+            updateCategoryPicker()
+        }
+    }
+    
+    private func updateCategoryPicker() {
+        if let index = Category.allCases.firstIndex(of: selectedCategory) {
+            memoFormView.categoryPicker.selectRow(index, inComponent: 0, animated: false)
         }
     }
     
     private func setupNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelMemoCreation))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelMemoForm))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveMemo))
     }
     
-    @objc private func cancelMemoCreation() {
+    private func setupCategoryPicker() {
+        memoFormView.categoryPicker.dataSource = self
+        memoFormView.categoryPicker.delegate = self
+    }
+    
+    
+    @objc private func cancelMemoForm() {
         dismiss(animated: true)
     }
     
@@ -61,11 +79,31 @@ class MemoFormController: UIViewController {
         if var existingMemo = memo {
             existingMemo.title = title
             existingMemo.content = content
+            existingMemo.category = selectedCategory
             delegate?.didUpdateMemo(existingMemo)
         } else {
-                 let newMemo = Memo(title: title, content: content)
-                 delegate?.didCreateNewMemo(newMemo)
-             }
+            let newMemo = Memo(title: title, content: content, category: selectedCategory)
+            delegate?.didCreateNewMemo(newMemo)
+        }
+        
         dismiss(animated: true)
+    }
+}
+
+extension MemoFormController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Category.allCases.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Category.allCases[row].rawValue
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedCategory = Category.allCases[row]
     }
 }
