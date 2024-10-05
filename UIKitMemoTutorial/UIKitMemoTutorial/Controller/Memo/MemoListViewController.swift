@@ -10,18 +10,21 @@ import UIKit
 class MemoListViewController: UIViewController {
     
     private let memoListView = MemoListView()
+    private var memoService: MemoService!
     
     // 샘플 메모 데이터 (Model)
-    var memos: [Memo] = [
-        Memo(title: "회의 준비", content: "프레젠테이션 자료 준비", category: .work),
-        Memo(title: "쇼핑 목록", content: "우유, 빵, 계란", category: .personal),
-        Memo(title: "새로운 앱 아이디어", content: "AR을 활용한 학습 앱", category: .ideas),
-        Memo(title: "운동 계획", content: "주 3회 러닝", category: .todos),
-        Memo(title: "프로젝트 마감일", content: "다음 주 금요일까지", category: .work)
-    ]
-    
-    var categorizedMemos: [Category: [Memo]] = [:]
+    var memos: [MemoModel] = []
+    var categorizedMemos: [Category: [MemoModel]] = [:]
     var categories: [Category] = []
+    
+    init(memoService: MemoService) {
+        super.init(nibName: nil, bundle: nil)
+        self.memoService = memoService
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(contextObjectsDidChange),
+                                               name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+                                               object: CoreDataManager.shared.mainContext)
+    }
     
     override func loadView() {
         view = memoListView
@@ -37,6 +40,16 @@ class MemoListViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewMemo))
         
+        fetchMemos()
+    }
+    
+    @objc func contextObjectsDidChange() {
+        fetchMemos()
+    }
+    
+    private func fetchMemos() {
+        let memos = memoService.fetchMemos()
+        self.memos = memos
         categorizeMemos()
     }
     
@@ -46,9 +59,12 @@ class MemoListViewController: UIViewController {
         memoListView.tableView.reloadData()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     @objc func addNewMemo() {
-        let newMemoVC = MemoFormController()
-        newMemoVC.delegate = self
+        let newMemoVC = MemoFormController(memoService: memoService)
         let navController = UINavigationController(rootViewController: newMemoVC)
         present(navController, animated: true)
     }
@@ -124,59 +140,44 @@ extension MemoListViewController: UITableViewDelegate {
     
     // Delete Memo
     private func deleteMemo(at indexPath: IndexPath) {
-        memos.remove(at: indexPath.row)
-        self.memoListView.tableView.deleteRows(at: [indexPath], with: .fade)
+        let category = categories[indexPath.section]
+        guard var memosInCategory = categorizedMemos[category],
+              indexPath.row < memosInCategory.count else {
+            print("Invalid index path for deletion")
+            return
+        }
+        
+        let memoToDelete = memosInCategory[indexPath.row]
+        
+        // Remove from categorizedMemos
+        memosInCategory.remove(at: indexPath.row)
+        categorizedMemos[category] = memosInCategory
+        
+        // Remove from memos array
+        if let index = memos.firstIndex(where: { $0.id == memoToDelete.id }) {
+            memos.remove(at: index)
+        }
+        
+        // Delete from Core Data
+        memoService.deleteMemo(memoToDelete)
+        
+        // Update UI
+        if memosInCategory.isEmpty {
+            categories.remove(at: indexPath.section)
+            memoListView.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+        } else {
+            memoListView.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     // Edit Memo
     private func showEditMemo(at indexPath: IndexPath) {
         let category = categories[indexPath.section]
         if let memo = categorizedMemos[category]?[indexPath.row] {
-            let memoFormController = MemoFormController(memo: memo)
-            memoFormController.delegate = self
+            let memoFormController = MemoFormController(memo: memo, memoService: memoService)
+            
             let navController = UINavigationController(rootViewController: memoFormController)
             present(navController, animated: true)
-        }
-    }
-}
-
-// MARK: - MemoCreationDelegate 구현
-extension MemoListViewController: MemoDelegate {
-    func didCreateNewMemo(_ memo: Memo) {
-        if categorizedMemos[memo.category] != nil {
-            categorizedMemos[memo.category]?.append(memo)
-        } else {
-            categorizedMemos[memo.category] = [memo]
-            categories.append(memo.category)
-            categories.sort { $0.rawValue < $1.rawValue }
-        }
-        memoListView.tableView.reloadData()
-    }
-    
-    func didUpdateMemo(_ updatedMemo: Memo) {
-        for (category, memos) in categorizedMemos {
-            if let index = memos.firstIndex(where: { $0.id == updatedMemo.id }) {
-                if category == updatedMemo.category {
-                    categorizedMemos[category]?[index] = updatedMemo
-                } else {
-                    categorizedMemos[category]?.remove(at: index)
-                    if categorizedMemos[category]?.isEmpty == true {
-                        categorizedMemos.removeValue(forKey: category)
-                        if let categoryIndex = categories.firstIndex(of: category) {
-                            categories.remove(at: categoryIndex)
-                        }
-                    }
-                    if categorizedMemos[updatedMemo.category] != nil {
-                        categorizedMemos[updatedMemo.category]?.append(updatedMemo)
-                    } else {
-                        categorizedMemos[updatedMemo.category] = [updatedMemo]
-                        categories.append(updatedMemo.category)
-                        categories.sort { $0.rawValue < $1.rawValue }
-                    }
-                }
-                memoListView.tableView.reloadData()
-                break
-            }
         }
     }
 }
