@@ -8,10 +8,10 @@ import UIKit
 
 class MemoDetailViewController: UIViewController {
     
-    private let memo: Memo
+    private let memo: MemoModel
     private let memoDetailView: MemoDetailView
     
-    init(memo: Memo) {
+    init(memo: MemoModel) {
         self.memo = memo
         self.memoDetailView = MemoDetailView()
         super.init(nibName: nil, bundle: nil)

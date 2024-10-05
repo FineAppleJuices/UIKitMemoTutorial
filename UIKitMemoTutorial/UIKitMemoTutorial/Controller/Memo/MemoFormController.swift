@@ -7,21 +7,17 @@
 
 import UIKit
 
-protocol MemoDelegate: AnyObject {
-    func didCreateNewMemo(_ memo: Memo)
-    func didUpdateMemo(_ memo: Memo)
-}
-
 // MARK: - MemoFormController
 class MemoFormController: UIViewController {
     
     private let memoFormView = MemoFormView()
-    weak var delegate: MemoDelegate?
-    private var memo: Memo?
+    private var memo: MemoModel?
     private var selectedCategory: Category = .personal
+    private var memoService: MemoService!
     
-    init(memo: Memo? = nil) {
+    init(memo: MemoModel? = nil, memoService: MemoService) {
         self.memo = memo
+        self.memoService = memoService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -80,10 +76,15 @@ class MemoFormController: UIViewController {
             existingMemo.title = title
             existingMemo.content = content
             existingMemo.category = selectedCategory
-            delegate?.didUpdateMemo(existingMemo)
+            if memoService.updateMemo(existingMemo) {
+               print("메모가 성공적으로 업데이트 되었습니다.")
+            } else {
+                print("메모 업데이트에 실패했습니다.")
+            }
+            
         } else {
-            let newMemo = Memo(title: title, content: content, category: selectedCategory)
-            delegate?.didCreateNewMemo(newMemo)
+            let newMemo = MemoModel(id: UUID().uuidString, title: title, content: content, category: selectedCategory)
+            memoService.saveMemo(newMemo)
         }
         
         dismiss(animated: true)

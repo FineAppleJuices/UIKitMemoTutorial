@@ -11,7 +11,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let memoListNavController = UINavigationController(rootViewController: MemoListViewController())
+        let memoListNavController = UINavigationController(rootViewController: MemoListViewController(memoService: MemoService()))
         memoListNavController.tabBarItem = UITabBarItem(title: "메모", image: UIImage(systemName: "note.text"), tag: 0)
         let settingsNavController = UINavigationController(rootViewController: SettingsViewController(style: .grouped))
         settingsNavController.tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "gear"), tag: 1)

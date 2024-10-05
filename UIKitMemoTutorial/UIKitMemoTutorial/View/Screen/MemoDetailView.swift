@@ -49,7 +49,7 @@ class MemoDetailView: UIView {
         ])
     }
     
-    func configure(with memo: Memo) {
+    func configure(with memo: MemoModel) {
         titleLabel.text = memo.title
         contentLabel.text = memo.content
     }
