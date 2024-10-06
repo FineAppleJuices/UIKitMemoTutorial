@@ -15,6 +15,7 @@ struct MemoModel: Identifiable, Equatable {
     let createdAt: Date = Date()
     var modifiedAt: Date?
     var category: Category
+    var imageData: Data?
 }
 
 extension MemoModel {
@@ -29,12 +30,15 @@ extension MemoModel {
             memo.modifiedAt = modifiedAt
         }
         memo.category = self.category.rawValue
+        if let image = self.imageData {
+            memo.image = image
+        }
         
         return memo
     }
     
     static func mapFromEntity(_ entity: MemoEntity) -> Self {
-        return .init(id: entity.id ,title: entity.title, content: entity.content, modifiedAt: entity.modifiedAt ?? nil, category: Category(rawValue: entity.category) ?? Category.todos)
+        return .init(id: entity.id ,title: entity.title, content: entity.content, modifiedAt: entity.modifiedAt ?? nil, category: Category(rawValue: entity.category) ?? Category.todos, imageData: entity.image ?? nil)
             
     }
     
