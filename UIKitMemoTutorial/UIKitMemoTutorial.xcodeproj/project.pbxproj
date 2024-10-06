@@ -32,6 +32,9 @@
 		AFB135012CB2A1EA0094EBE0 /* MemoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134FF2CB2A1EA0094EBE0 /* MemoEntity+CoreDataProperties.swift */; };
 		AFB135042CB2A2860094EBE0 /* Extension+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB135032CB2A2860094EBE0 /* Extension+Data.swift */; };
 		AFB135062CB2A2970094EBE0 /* Extension+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB135052CB2A2970094EBE0 /* Extension+UIImage.swift */; };
+		AFB135082CB2B87D0094EBE0 /* MemoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB135072CB2B8690094EBE0 /* MemoCollectionView.swift */; };
+		AFB1350A2CB2B9700094EBE0 /* MemoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB135092CB2B9700094EBE0 /* MemoCollectionViewCell.swift */; };
+		AFB1350C2CB2B9FB0094EBE0 /* MemoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1350B2CB2B9FB0094EBE0 /* MemoCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +65,9 @@
 		AFB134FF2CB2A1EA0094EBE0 /* MemoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AFB135032CB2A2860094EBE0 /* Extension+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Data.swift"; sourceTree = "<group>"; };
 		AFB135052CB2A2970094EBE0 /* Extension+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIImage.swift"; sourceTree = "<group>"; };
+		AFB135072CB2B8690094EBE0 /* MemoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCollectionView.swift; sourceTree = "<group>"; };
+		AFB135092CB2B9700094EBE0 /* MemoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCollectionViewCell.swift; sourceTree = "<group>"; };
+		AFB1350B2CB2B9FB0094EBE0 /* MemoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,7 @@
 				AF8F62112C8DDA9F00D6E8E2 /* MemoListView.swift */,
 				AF7C167D2C9B1AD500DF3423 /* MemoDetailView.swift */,
 				AF5E24842C9B2CE400FA2DA5 /* MemoFormView.swift */,
+				AFB135072CB2B8690094EBE0 /* MemoCollectionView.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -152,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				AF8F62152C8DDE5700D6E8E2 /* MemoTableViewCell.swift */,
+				AFB135092CB2B9700094EBE0 /* MemoCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -159,6 +167,7 @@
 		AFB134E32CAA37480094EBE0 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
+				AFB1350B2CB2B9FB0094EBE0 /* MemoCollectionViewController.swift */,
 				AF5E24822C9B1B4D00FA2DA5 /* MemoDetailViewController.swift */,
 				AF8F61B92C8C91F100D6E8E2 /* MemoListViewController.swift */,
 				AF5E24862C9B2D0E00FA2DA5 /* MemoFormController.swift */,
@@ -276,12 +285,14 @@
 			files = (
 				AFB134F92CB031EC0094EBE0 /* MemoService.swift in Sources */,
 				AF7C167E2C9B1AD500DF3423 /* MemoDetailView.swift in Sources */,
+				AFB1350C2CB2B9FB0094EBE0 /* MemoCollectionViewController.swift in Sources */,
 				AFB134E02CAA355D0094EBE0 /* SettingViewController.swift in Sources */,
 				AFB134E22CAA358B0094EBE0 /* MainTabBarController.swift in Sources */,
 				AFB134E62CAA37E10094EBE0 /* NotificationSettingViewController.swift in Sources */,
 				AFB135062CB2A2970094EBE0 /* Extension+UIImage.swift in Sources */,
 				AF5E24832C9B1B4D00FA2DA5 /* MemoDetailViewController.swift in Sources */,
 				AFB134F62CB030610094EBE0 /* CoreDataManager.swift in Sources */,
+				AFB135082CB2B87D0094EBE0 /* MemoCollectionView.swift in Sources */,
 				AF8F61BA2C8C91F100D6E8E2 /* MemoListViewController.swift in Sources */,
 				AF5E24872C9B2D0E00FA2DA5 /* MemoFormController.swift in Sources */,
 				AFB134EC2CAA3C240094EBE0 /* Category.swift in Sources */,
@@ -293,6 +304,7 @@
 				AF8F61B82C8C91F100D6E8E2 /* SceneDelegate.swift in Sources */,
 				AFB135002CB2A1EA0094EBE0 /* MemoEntity+CoreDataClass.swift in Sources */,
 				AFB135042CB2A2860094EBE0 /* Extension+Data.swift in Sources */,
+				AFB1350A2CB2B9700094EBE0 /* MemoCollectionViewCell.swift in Sources */,
 				AFB135012CB2A1EA0094EBE0 /* MemoEntity+CoreDataProperties.swift in Sources */,
 				AF5E24852C9B2CE400FA2DA5 /* MemoFormView.swift in Sources */,
 				AF8F62122C8DDA9F00D6E8E2 /* MemoListView.swift in Sources */,
