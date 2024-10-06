@@ -26,10 +26,12 @@
 		AFB134EA2CAA38040094EBE0 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134E92CAA38040094EBE0 /* AppInfoViewController.swift */; };
 		AFB134EC2CAA3C240094EBE0 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134EB2CAA3C240094EBE0 /* Category.swift */; };
 		AFB134EF2CB02F050094EBE0 /* MemoTutorial.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AFB134ED2CB02F050094EBE0 /* MemoTutorial.xcdatamodeld */; };
-		AFB134F22CB0300B0094EBE0 /* MemoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134F02CB0300B0094EBE0 /* MemoEntity+CoreDataClass.swift */; };
-		AFB134F32CB0300B0094EBE0 /* MemoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134F12CB0300B0094EBE0 /* MemoEntity+CoreDataProperties.swift */; };
 		AFB134F62CB030610094EBE0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134F52CB030610094EBE0 /* CoreDataManager.swift */; };
 		AFB134F92CB031EC0094EBE0 /* MemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134F82CB031EC0094EBE0 /* MemoService.swift */; };
+		AFB135002CB2A1EA0094EBE0 /* MemoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134FE2CB2A1EA0094EBE0 /* MemoEntity+CoreDataClass.swift */; };
+		AFB135012CB2A1EA0094EBE0 /* MemoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB134FF2CB2A1EA0094EBE0 /* MemoEntity+CoreDataProperties.swift */; };
+		AFB135042CB2A2860094EBE0 /* Extension+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB135032CB2A2860094EBE0 /* Extension+Data.swift */; };
+		AFB135062CB2A2970094EBE0 /* Extension+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB135052CB2A2970094EBE0 /* Extension+UIImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,10 +56,12 @@
 		AFB134E92CAA38040094EBE0 /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 		AFB134EB2CAA3C240094EBE0 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		AFB134EE2CB02F050094EBE0 /* MemoTutorial.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoTutorial.xcdatamodel; sourceTree = "<group>"; };
-		AFB134F02CB0300B0094EBE0 /* MemoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AFB134F12CB0300B0094EBE0 /* MemoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AFB134F52CB030610094EBE0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		AFB134F82CB031EC0094EBE0 /* MemoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoService.swift; sourceTree = "<group>"; };
+		AFB134FE2CB2A1EA0094EBE0 /* MemoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AFB134FF2CB2A1EA0094EBE0 /* MemoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AFB135032CB2A2860094EBE0 /* Extension+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Data.swift"; sourceTree = "<group>"; };
+		AFB135052CB2A2970094EBE0 /* Extension+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,7 @@
 		AF8F620C2C8DCEC800D6E8E2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AFB135022CB2A2790094EBE0 /* Extension */,
 				AFB134F72CB031D60094EBE0 /* Service */,
 				AFB134F42CB0301E0094EBE0 /* CoreData */,
 				AF8F620F2C8DCF0800D6E8E2 /* MemoModel.swift */,
@@ -175,9 +180,9 @@
 		AFB134F42CB0301E0094EBE0 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				AFB134F12CB0300B0094EBE0 /* MemoEntity+CoreDataProperties.swift */,
-				AFB134F02CB0300B0094EBE0 /* MemoEntity+CoreDataClass.swift */,
 				AFB134F52CB030610094EBE0 /* CoreDataManager.swift */,
+				AFB134FE2CB2A1EA0094EBE0 /* MemoEntity+CoreDataClass.swift */,
+				AFB134FF2CB2A1EA0094EBE0 /* MemoEntity+CoreDataProperties.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -188,6 +193,15 @@
 				AFB134F82CB031EC0094EBE0 /* MemoService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		AFB135022CB2A2790094EBE0 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				AFB135032CB2A2860094EBE0 /* Extension+Data.swift */,
+				AFB135052CB2A2970094EBE0 /* Extension+UIImage.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,11 +279,10 @@
 				AFB134E02CAA355D0094EBE0 /* SettingViewController.swift in Sources */,
 				AFB134E22CAA358B0094EBE0 /* MainTabBarController.swift in Sources */,
 				AFB134E62CAA37E10094EBE0 /* NotificationSettingViewController.swift in Sources */,
+				AFB135062CB2A2970094EBE0 /* Extension+UIImage.swift in Sources */,
 				AF5E24832C9B1B4D00FA2DA5 /* MemoDetailViewController.swift in Sources */,
 				AFB134F62CB030610094EBE0 /* CoreDataManager.swift in Sources */,
 				AF8F61BA2C8C91F100D6E8E2 /* MemoListViewController.swift in Sources */,
-				AFB134F22CB0300B0094EBE0 /* MemoEntity+CoreDataClass.swift in Sources */,
-				AFB134F32CB0300B0094EBE0 /* MemoEntity+CoreDataProperties.swift in Sources */,
 				AF5E24872C9B2D0E00FA2DA5 /* MemoFormController.swift in Sources */,
 				AFB134EC2CAA3C240094EBE0 /* Category.swift in Sources */,
 				AFB134E82CAA37F40094EBE0 /* ThemeSettingsViewController.swift in Sources */,
@@ -278,6 +291,9 @@
 				AF8F61B62C8C91F100D6E8E2 /* AppDelegate.swift in Sources */,
 				AFB134EA2CAA38040094EBE0 /* AppInfoViewController.swift in Sources */,
 				AF8F61B82C8C91F100D6E8E2 /* SceneDelegate.swift in Sources */,
+				AFB135002CB2A1EA0094EBE0 /* MemoEntity+CoreDataClass.swift in Sources */,
+				AFB135042CB2A2860094EBE0 /* Extension+Data.swift in Sources */,
+				AFB135012CB2A1EA0094EBE0 /* MemoEntity+CoreDataProperties.swift in Sources */,
 				AF5E24852C9B2CE400FA2DA5 /* MemoFormView.swift in Sources */,
 				AF8F62122C8DDA9F00D6E8E2 /* MemoListView.swift in Sources */,
 				AF8F62102C8DCF0800D6E8E2 /* MemoModel.swift in Sources */,
@@ -427,7 +443,7 @@
 				DEVELOPMENT_TEAM = ZWTS2P7AH7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UIKitMemoTutorial/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진첩에 접근하기 위한 권한이 필요합니다. ";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -458,7 +474,7 @@
 				DEVELOPMENT_TEAM = ZWTS2P7AH7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UIKitMemoTutorial/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진첩에 접근하기 위한 권한이 필요합니다. ";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

@@ -80,6 +80,7 @@ class MemoService{
             memoEntity.title = updatedMemo.title
             memoEntity.content = updatedMemo.content
             memoEntity.category = updatedMemo.category.rawValue
+            memoEntity.image = updatedMemo.imageData
             memoEntity.modifiedAt = Date()
             
             coreDataManager.saveContext(context)

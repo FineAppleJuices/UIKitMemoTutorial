@@ -2,7 +2,7 @@
 //  MemoEntity+CoreDataClass.swift
 //  UIKitMemoTutorial
 //
-//  Created by 이종선 on 10/4/24.
+//  Created by 이종선 on 10/6/24.
 //
 //
 
